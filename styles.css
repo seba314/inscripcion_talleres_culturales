@@ -1,0 +1,502 @@
+/* ============================================================
+   styles.css — Talleres Culturales Comunitarios
+   Paleta: Violeta cultural + acento dorado cálido
+   ============================================================ */
+
+/* ---- Variables de color y tipografía ---- */
+:root {
+  --color-primario:    #5B2D8E;   /* Violeta profundo — color principal */
+  --color-acento:      #E07B2A;   /* Dorado cálido — acento */
+  --color-secundario:  #7E4BAD;   /* Violeta medio — hover/nav */
+  --color-fondo:       #F8F5FF;   /* Fondo principal suave */
+  --color-fondo-card:  #FFFFFF;   /* Fondo de tarjetas */
+  --color-beige:       #FEF3E8;   /* Fondo de sección inicio */
+  --color-texto:       #2C2240;   /* Texto principal */
+  --color-suave:       #6B5E7E;   /* Texto secundario */
+  --color-blanco:      #FFFFFF;
+  --color-borde:       #DDD0F0;   /* Bordes sutiles */
+  --color-error:       #C0392B;
+
+  --sombra-suave: 0 2px 12px rgba(91, 45, 142, 0.10);
+  --sombra-card:  0 4px 20px rgba(91, 45, 142, 0.13);
+  --radio:        12px;
+  --radio-btn:    8px;
+}
+
+/* ============================================================
+   RESET Y BASE
+============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+}
+
+/* ============================================================
+   CONTENEDOR CENTRADO
+============================================================ */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+.site-header {
+  background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+  color: var(--color-blanco);
+  padding: 36px 0;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.18);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.site-header h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.header-tagline {
+  font-size: 0.95rem;
+  opacity: 0.88;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   NAVEGACIÓN
+============================================================ */
+.main-nav {
+  background-color: var(--color-primario);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: block;
+  padding: 14px 22px;
+  color: rgba(255, 255, 255, 0.90);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-blanco);
+  outline: none;
+}
+
+/* ============================================================
+   MAIN
+============================================================ */
+.main-content {
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* ============================================================
+   TIPOGRAFÍA DE SECCIONES
+============================================================ */
+section h2 {
+  font-size: 1.55rem;
+  color: var(--color-primario);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--color-borde);
+}
+
+.section-intro {
+  color: var(--color-suave);
+  margin-bottom: 24px;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   SECCIÓN INICIO — Bienvenida
+============================================================ */
+.section-inicio {
+  background-color: var(--color-beige);
+  border-radius: var(--radio);
+  padding: 32px 36px;
+  border-left: 5px solid var(--color-acento);
+  box-shadow: var(--sombra-suave);
+}
+
+.section-inicio h2 {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 12px;
+  color: var(--color-primario);
+}
+
+.section-inicio p {
+  margin-bottom: 22px;
+  color: var(--color-suave);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   BOTONES
+============================================================ */
+.btn-primary {
+  display: inline-block;
+  background-color: var(--color-acento);
+  color: var(--color-blanco);
+  padding: 12px 30px;
+  border-radius: var(--radio-btn);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 3px 10px rgba(224, 123, 42, 0.35);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #c96a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(224, 123, 42, 0.4);
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   TARJETAS DE TALLERES
+============================================================ */
+.talleres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.taller-card {
+  background-color: var(--color-fondo-card);
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra-card);
+  border: 1px solid var(--color-borde);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.taller-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(91, 45, 142, 0.18);
+}
+
+.taller-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.taller-body {
+  padding: 20px;
+}
+
+.taller-titulo {
+  font-size: 1.05rem;
+  color: var(--color-primario);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.taller-desc {
+  font-size: 0.9rem;
+  color: var(--color-suave);
+  margin-bottom: 14px;
+  line-height: 1.55;
+}
+
+.taller-horario {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-primario);
+  background-color: var(--color-fondo);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+}
+
+/* ============================================================
+   FORMULARIO DE INSCRIPCIÓN
+============================================================ */
+.form-inscripcion {
+  background-color: var(--color-fondo-card);
+  border-radius: var(--radio);
+  padding: 32px 36px;
+  box-shadow: var(--sombra-card);
+  border: 1px solid var(--color-borde);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-texto);
+}
+
+input,
+select,
+textarea {
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radio-btn);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-secundario);
+  box-shadow: 0 0 0 3px rgba(126, 75, 173, 0.15);
+  background-color: var(--color-blanco);
+}
+
+input:invalid:not(:placeholder-shown),
+select:invalid:not(:focus) {
+  border-color: var(--color-error);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-hint {
+  font-size: 0.78rem;
+  color: var(--color-suave);
+}
+
+.requerido {
+  color: var(--color-error);
+  font-weight: bold;
+}
+
+.nota-requeridos {
+  font-size: 0.82rem;
+  color: var(--color-suave);
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.site-footer {
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  margin-top: 16px;
+  padding: 28px 0;
+  text-align: center;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.footer-contacto {
+  display: flex;
+  gap: 24px;
+  font-style: normal;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-contacto a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.footer-contacto a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVE — Móvil (hasta 768px)
+============================================================ */
+@media (max-width: 768px) {
+
+  .talleres-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .site-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .logo-icon {
+    font-size: 2.2rem;
+  }
+
+  .form-inscripcion {
+    padding: 24px 20px;
+  }
+
+  .section-inicio {
+    padding: 24px 20px;
+  }
+
+  .nav-link {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+  }
+
+  .main-content {
+    padding: 32px 16px;
+    gap: 40px;
+  }
+
+  .footer-contacto {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Pantallas muy pequeñas (hasta 480px)
+============================================================ */
+@media (max-width: 480px) {
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .site-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .nav-list {
+    justify-content: center;
+  }
+
+  .nav-link {
+    padding: 10px 10px;
+    font-size: 0.8rem;
+  }
+
+  section h2 {
+    font-size: 1.3rem;
+  }
+
+}
+.talleres-aside {
+  background-color: var(--color-fondo-card);
+  border-radius: var(--radio);
+  padding: 24px 28px;
+  border-left: 5px solid var(--color-primario);
+  box-shadow: var(--sombra-suave);
+  margin-top: 24px;
+}
+
+.talleres-aside h3 {
+  color: var(--color-primario);
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.talleres-aside ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.talleres-aside ul li {
+  font-size: 0.9rem;
+  color: var(--color-suave);
+  padding-left: 16px;
+  position: relative;
+}
+
+.talleres-aside ul li::before {
+  content: "✓";
+  color: var(--color-acento);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+  
+

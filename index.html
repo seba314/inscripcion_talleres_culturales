@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Configuración básica del documento -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal de inscripción a talleres culturales comunitarios. Pintura, danza folclórica, teatro y más.">
+  <title>Talleres Culturales | Portal de Inscripción</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ========================================================
+       HEADER: Identidad del portal y título principal
+  ======================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <span class="logo-icon" aria-hidden="true">🎨</span>
+        <div>
+          <h1>Talleres Culturales Comunitarios</h1>
+          <p class="header-tagline">Descubre y desarrolla tu talento artístico — inscripción abierta</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       NAV: Menú de navegación principal
+  ======================================================== -->
+  <nav class="main-nav" aria-label="Navegación principal">
+    <div class="container">
+      <ul class="nav-list">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#talleres" class="nav-link">Talleres</a></li>
+        <li><a href="#inscripcion" class="nav-link">Inscripción</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       MAIN: Contenido principal de la página
+  ======================================================== -->
+  <main class="container main-content">
+
+    <!-- ------------------------------------------------
+         SECCIÓN INICIO: Bienvenida al portal
+    ------------------------------------------------ -->
+    <section id="inicio" class="section-inicio">
+      <h2>¡Bienvenidos a nuestra comunidad cultural!</h2>
+      <p>
+        Abrimos las puertas para que vecinos de todas las edades descubran y desarrollen
+        sus talentos artísticos. Nuestros talleres son <strong>gratuitos</strong> y están
+        diseñados para fomentar la expresión creativa y el encuentro comunitario.
+      </p>
+      <a href="#inscripcion" class="btn-primary">Inscríbete ahora</a>
+    </section>
+
+    <!-- ------------------------------------------------
+         SECCIÓN TALLERES: Tarjetas de talleres disponibles
+    ------------------------------------------------ -->
+    <section id="talleres">
+      <h2>Talleres Disponibles</h2>
+      <p class="section-intro">Explora nuestros talleres y elige el que más te inspire.</p>
+
+      <!-- Grilla de tarjetas de talleres -->
+      <div class="talleres-grid">
+
+        <!-- Taller 1: Pintura para principiantes -->
+        <article class="taller-card">
+          <!-- Badge posicionado absolutamente (Criterio 2: position absolute) -->
+          <span class="taller-badge">8 cupos</span>
+          <img
+            src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=220&fit=crop"
+            alt="Persona pintando con pinceles y colores sobre un lienzo en un taller de pintura"
+            class="taller-img"
+          >
+          <div class="taller-body">
+            <h3 class="taller-titulo">🖌️ Pintura para Principiantes</h3>
+            <p class="taller-desc">
+              Aprende técnicas básicas de pintura con acrílicos y acuarela. No se necesita
+              experiencia previa — solo ganas de crear y experimentar con el color.
+            </p>
+            <p class="taller-horario">
+              <span aria-hidden="true">🕐</span>
+              <strong>Martes y jueves</strong>, 10:00 – 12:00 hrs
+            </p>
+          </div>
+        </article>
+
+        <!-- Taller 2: Danza folclórica -->
+        <article class="taller-card">
+          <span class="taller-badge">12 cupos</span>
+          <img
+            src="https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?w=400&h=220&fit=crop"
+            alt="Grupo de personas bailando danza folclórica con vestimentas tradicionales coloridas"
+            class="taller-img"
+          >
+          <div class="taller-body">
+            <h3 class="taller-titulo">💃 Danza Folclórica</h3>
+            <p class="taller-desc">
+              Revive las tradiciones de nuestra región a través del movimiento. Aprenderás
+              coreografías típicas y la historia detrás de cada danza.
+            </p>
+            <p class="taller-horario">
+              <span aria-hidden="true">🕐</span>
+              <strong>Lunes, miércoles y viernes</strong>, 18:00 – 19:30 hrs
+            </p>
+          </div>
+        </article>
+
+        <!-- Taller 3: Teatro comunitario -->
+        <article class="taller-card">
+          <span class="taller-badge">5 cupos</span>
+          <img
+            src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=400&h=220&fit=crop"
+            alt="Actores en escena durante una obra de teatro comunitario bajo las luces del escenario"
+            class="taller-img"
+          >
+          <div class="taller-body">
+            <h3 class="taller-titulo">🎭 Teatro Comunitario</h3>
+            <p class="taller-desc">
+              Desarrolla tu expresión corporal, voz y confianza en escena. Trabajaremos obras
+              que reflejan historias de nuestra comunidad.
+            </p>
+            <p class="taller-horario">
+              <span aria-hidden="true">🕐</span>
+              <strong>Sábados</strong>, 09:00 – 12:00 hrs
+            </p>
+          </div>
+        </article>
+
+      </div><!-- /talleres-grid -->
+    </section>
+
+    <!-- ------------------------------------------------
+         SECCIÓN INSCRIPCIÓN: Formulario de registro
+    ------------------------------------------------ -->
+    <section id="inscripcion">
+      <h2>Formulario de Inscripción</h2>
+      <p class="section-intro">Completa el formulario y nos pondremos en contacto contigo.</p>
+
+      <form class="form-inscripcion" novalidate>
+
+        <!-- Campo: Nombre completo -->
+        <div class="form-group">
+          <label for="nombre">Nombre completo <span class="requerido" aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            placeholder="Ej: María González"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- Campo: Correo electrónico -->
+        <div class="form-group">
+          <label for="email">Correo electrónico <span class="requerido" aria-hidden="true">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Ej: maria@correo.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- Fila de dos columnas: Edad y Teléfono -->
+        <div class="form-row">
+
+          <!-- Campo: Edad (con validación min/max) -->
+          <div class="form-group">
+            <label for="edad">Edad <span class="requerido" aria-hidden="true">*</span></label>
+            <input
+              type="number"
+              id="edad"
+              name="edad"
+              placeholder="Ej: 25"
+              min="6"
+              max="99"
+              required
+            >
+            <small class="form-hint">Entre 6 y 99 años</small>
+          </div>
+
+          <!-- Campo: Teléfono (con pattern de validación) -->
+          <div class="form-group">
+            <label for="telefono">Teléfono <span class="requerido" aria-hidden="true">*</span></label>
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              placeholder="Ej: +56912345678"
+              pattern="[\+]?[0-9\s\-]{7,15}"
+              required
+              autocomplete="tel"
+            >
+            <small class="form-hint">Formato: +56912345678</small>
+          </div>
+
+        </div><!-- /form-row -->
+
+        <!-- Campo: Taller de interés (select) -->
+        <div class="form-group">
+          <label for="taller">Taller de interés <span class="requerido" aria-hidden="true">*</span></label>
+          <select id="taller" name="taller" required>
+            <option value="" disabled selected>-- Selecciona un taller --</option>
+            <option value="pintura">🖌️ Pintura para Principiantes</option>
+            <option value="danza">💃 Danza Folclórica</option>
+            <option value="teatro">🎭 Teatro Comunitario</option>
+          </select>
+        </div>
+
+        <!-- Campo: Comentarios (textarea) -->
+        <div class="form-group">
+          <label for="comentarios">Comentarios o consultas</label>
+          <textarea
+            id="comentarios"
+            name="comentarios"
+            rows="4"
+            placeholder="¿Tienes alguna pregunta o quieres contarnos algo antes de inscribirte?"
+          ></textarea>
+        </div>
+
+        <!-- Nota de campos requeridos -->
+        <p class="nota-requeridos"><span class="requerido">*</span> Campos obligatorios</p>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="btn-primary btn-submit">Enviar inscripción</button>
+
+      </form>
+    </section>
+
+  </main><!-- /main -->
+
+  <!-- ========================================================
+       FOOTER: Información de contacto
+  ======================================================== -->
+  <footer id="contacto" class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-nombre">🎨 Talleres Culturales Comunitarios</p>
+      <address class="footer-contacto">
+        <a href="mailto:cultura@municipio.cl">✉️ cultura@municipio.cl</a>
+        <a href="tel:+56223456789">📞 +56 2 2345 6789</a>
+      </address>
+    </div>
+  </footer><!-- /footer -->
+
+</body>
+</html>

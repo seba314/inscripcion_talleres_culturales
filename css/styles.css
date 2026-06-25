@@ -1,0 +1,820 @@
+/* ---- Sistema de diseño: variables ---- */
+:root {
+  /* Paleta de Colores */
+    --ink:          #2B1F2D;
+    --ink-soft:     #6B5B6C;
+    --teal:         #145C54;
+    --teal-deep:    #0E4540;
+    --teal-light:   #1F7A6E;
+    --clay:         #D6602F;
+    --clay-deep:    #B84F22;
+    --marigold:     #F0AD42;
+    --paper:        #FBF1E4;
+    --paper-card:   #FFFCF6;
+    --line:         #E3D2B8;
+    --white:        #FFFFFF;
+    --error:        #B3261E;
+
+    /* Tipografía */
+    --font-display: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+    --font-body:    'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Sombra / forma */
+    --shadow-sm:    0 2px 10px rgba(43, 31, 45, 0.08);
+    --shadow-md:    0 10px 28px rgba(43, 31, 45, 0.14);
+    --shadow-card:  0 12px 32px rgba(20, 92, 84, 0.14);
+    --radius:       16px;
+    --radius-sm:    8px;
+    --radius-pill:  999px;
+
+  /* Medidas */
+    --img-h: 190px;
+}
+
+/* RESET Y BASE */
+
+/* Esto le quita los márgenes invisibles que los navegadores 
+   ponen por defecto. Así empezamos a diseñar desde cero. */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* Hace que cuando hagas clic en un enlace que te lleve a otra parte 
+   de la misma página, el viaje sea suave y no un salto brusco. */
+html {
+    scroll-behavior: smooth;
+}
+/* El cuerpo principal de la página. Aquí definimos el tipo de letra, 
+   el tamaño, el color del texto y el color de fondo para todo el sitio. */
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    background-color: var(--paper);
+    position: relative;
+    overflow-x: hidden;/* Evita que la página se pueda mover hacia los lados */
+
+}
+
+/* Textura de papel fija: no se desplaza con el contenido (position: fixed) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle, rgba(43, 31, 45, 0.05) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+}
+/* Cambia el color de fondo y de letra cuando seleccionas texto con el ratón 
+   (copiar y pegar). */
+::selection {
+  background-color: var(--marigold);
+  color: var(--ink);
+}
+/* El texto de pista gris clarito que aparece dentro de los formularios 
+   (como "Escribe tu email aquí...") */
+::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.6;
+}
+/* Evita que las imágenes gigantes se salgan de la pantalla y rompan el diseño. */
+img {
+  max-width: 100%;
+}
+/* Hace que los enlaces usen el color normal del texto, 
+   en lugar del clásico azul subrayado de internet antiguo. */
+a {
+  color: inherit;
+}
+
+/*  ESTRUCTURA PRINCIPAL */
+
+/* Una caja invisible que envuelve todo para que el contenido quede 
+   centrado en la pantalla y no se estire de borde a borde en monitores grandes. */
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* HEADER  (LA PARTE DE ARRIBA)*/
+
+/* El encabezado principal. Le pone un fondo con degradado (mezcla de colores), 
+   texto blanco y una pequeña sombra abajo. */
+.site-header {
+    position: relative; /* contexto para los acentos absolutos */
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+    color: var(--white);
+    padding: 44px 0;
+    box-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
+}
+
+/*  Estos dos bloques (::before y ::after) crean unos círculos de luz difuminada 
+    que sirven solo de adorno en el fondo del encabezado. */ 
+.site-header::before,
+.site-header::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.site-header::before {
+  width: 320px;
+  height: 320px;
+  top: -130px;
+  right: -70px;
+  background: radial-gradient(circle, rgba(240, 173, 66, 0.30), transparent 70%);
+}
+
+.site-header::after {
+  width: 220px;
+  height: 220px;
+  bottom: -110px;
+  left: 6%;
+  background: radial-gradient(circle, rgba(214, 96, 47, 0.22), transparent 70%);
+}
+
+/* Ordena el logotipo y el título para que estén uno al lado del otro. */
+.header-content {
+  position: relative;
+  z-index: 1; /* Asegura que el texto esté por encima de los resplandores de luz */
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Separación entre el logo y los textos */
+}
+
+/* El dibujito del logo. Lo hace grande y le pone una sombrita. */
+.logo-icon {
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+/* El título principal de la página. Su tamaño se adapta dependiendo de 
+   si estás en el móvil o en el computador. */
+.site-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* La frase pequeña que va debajo del título principal. */
+.header-tagline {
+  font-size: 0.97rem;
+  font-style: italic;
+  opacity: 0.9;
+  margin-top: 6px;
+}
+
+/* Menu de navegacion */
+
+/* La barra de navegación. Tiene "position: sticky", lo que significa que 
+   se quedará pegada en el techo de la pantalla cuando bajes por la página. */
+.main-nav {
+  background-color: var(--teal-deep);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Ordena los enlaces del menú uno al lado del otro. */
+.nav-list {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+
+.nav-list > li {
+    position: relative;
+}
+
+
+.nav-list > li + li {
+  border-left: 1px dashed rgba(255, 255, 255, 0.22);
+}
+
+/* El diseño de los enlaces del menú: color, tamaño de letra mayúscula y espacios. */
+.nav-link {
+  position: relative;
+  display: block;
+  padding: 16px 22px;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Prepara una línea de subrayado invisible que aparecerá luego al pasar el ratón. */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 0;
+  height: 2px;
+  background-color: var(--marigold);
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+/* Cuando le pasas el ratón por encima a un enlace del menú: se ilumina un poco. */
+.nav-link:hover,
+.nav-link:focus-visible {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  outline: none;
+}
+
+/* Hace que la línea de subrayado crezca y se haga visible cuando pasas el ratón. */
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  width: 56%;
+}
+
+/*  CONTENIDO PRINCIPAL Y TÍTULOS */
+
+/* Espaciado general para el contenido que va debajo del menú. */
+.main-content {
+  padding: 56px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* Diseño de los títulos secundarios. */
+section h2 {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.7rem);
+  color: var(--teal-deep);
+  margin-bottom: 14px;
+  padding-bottom: 16px;
+}
+
+/* Dibuja una línea de adorno cortita debajo de cada título de sección. */
+section h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 54px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background-color: var(--clay);
+}
+
+/* Estilo para el párrafo de introducción que va justo debajo del título de sección. */
+section h2 ~ .section-intro {
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  margin-top: 2px;
+}
+
+/* SECCIÓN INICIO — Tablón de bienvenida */
+
+/* Esta caja está diseñada para parecer un trozo de papel pegado en una pared.
+   Le pone un borde de líneas separadas, sombra y la gira un poquito (-0.4 grados). */
+
+.section-inicio {
+  position: relative;
+  background-color: var(--paper-card);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 40px 40px 36px;
+  transform: rotate(-0.4deg);
+  box-shadow: var(--shadow-md);
+}
+
+/* "chinche" de tablón de anuncios*/
+.section-inicio::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 35% 30%, #ffd98c, var(--marigold) 60%, var(--clay-deep) 100%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.section-inicio::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  background-color: rgba(43, 31, 45, 0.25);
+  transform: translateX(-50%) rotate(8deg);
+}
+
+.section-inicio h2 {
+  margin-bottom: 14px;
+  color: var(--teal-deep);
+}
+
+.section-inicio h2::after {
+  background-color: var(--marigold);
+}
+
+.section-inicio p {
+  margin-bottom: 24px;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+}
+
+/* Crea un cartelito flotante tipo "etiqueta" que dice "Cupos limitados".
+   El texto normal rodea esta etiqueta gracias a la regla "float". */
+.section-inicio p::before {
+  content: "Cupos limitados";
+  float: right;
+  margin: 0 0 10px 14px;
+  padding: 6px 14px;
+  background-color: var(--teal);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Limpia el float antes del botón para no afectar la usabilidad */
+#inicio .btn-primary {
+  clear: both;
+}
+
+/* BOTONES */
+.btn-primary {
+  display: inline-block;
+  background-color: var(--clay);
+  color: var(--white);
+  padding: 13px 32px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(214, 96, 47, 0.38);
+}
+
+/* Lo que pasa cuando le pasas el ratón a un botón: cambia de color, 
+   se levanta un poquito hacia arriba (transform) y le crece la sombra. */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--clay-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(214, 96, 47, 0.42);
+  outline: 2px solid var(--marigold);
+  outline-offset: 2px;
+}
+/* Lo que pasa cuando haces clic (pulsas) el botón: baja a su posición normal. */
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Un estilo extra para botones de formularios. Hace que ocupen el 100% 
+   del ancho disponible en la pantalla. */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+/*  --------------------------------------------------------------------------*/
+/*  TARJETAS DE TALLERES */
+.talleres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 28px;
+}
+
+.taller-card {
+  position: relative;
+  background-color: var(--paper-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border-top: 5px solid var(--teal);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Pseudoclase :nth-child para alternar color e inclinación — "tablón imperfecto" */
+.taller-card:nth-child(3n+1) { border-top-color: var(--teal); transform: rotate(-0.5deg); }
+.taller-card:nth-child(3n+2) { border-top-color: var(--clay); transform: rotate(0.5deg); }
+.taller-card:nth-child(3n+3) { border-top-color: var(--marigold); transform: rotate(-0.3deg); }
+
+/* Efecto de levantar la tarjeta cuando el mouse pasa por encima */
+.taller-card:hover {
+  transform: rotate(0deg) translateY(-20px);
+  box-shadow: 0 18px 36px rgba(20, 92, 84, 0.22);
+}
+
+/* Recorta la imagen para que todas tengan el mismo tamaño */
+.taller-img {
+  width: 100%;
+  height: var(--img-h);
+  object-fit: cover;
+  display: block;
+}
+
+/* Agrega las perforaciones de boleto entre la imagen y el contenido,
+   sin necesidad de agregar elementos extra en el HTML */
+.taller-card::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--img-h) - 7px);
+  left: 0;
+  width: 100%;
+  height: 14px;
+  background-image: radial-gradient(circle 7px, var(--paper) 99%, transparent 100%);
+  background-position: left center;
+  background-repeat: repeat-x;
+  background-size: 22px 14px;
+  z-index: 1;
+}
+
+/* Contenido debajo de las perforaciones, en capa superior
+   para que el texto no quede tapado por los círculos */
+.taller-body {
+  position: relative;
+  z-index: 2;
+  padding: 22px 20px;
+}
+
+/* Título de cada tarjeta: fuente display, verde oscuro y semi-negrita */
+.taller-titulo {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  color: var(--teal-deep);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* Descripción del taller: texto más pequeño y suave que el título */
+.taller-desc {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* Cajita de horario al fondo de la tarjeta, con borde punteado */
+.taller-horario {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--teal-deep);
+  background-color: var(--paper);
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--line);
+}
+
+/* FORMULARIO DE INSCRIPCIÓN */
+/* Contenedor del formulario con la misma estética que las tarjetas,
+   línea naranja arriba para destacarlo como zona de acción */
+.form-inscripcion {
+  position: relative;
+  background-color: var(--paper-card);
+  border-radius: var(--radius);
+  padding: 36px 40px;
+  box-shadow: var(--shadow-card);
+  border-top: 5px solid var(--clay);
+}
+
+/* Apila el label arriba y el input abajo con un pequeño espacio entre ellos */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Separa cada campo del formulario, excepto el primero, usando combinador + */
+.form-group + .form-group {
+  margin-top: 22px;
+}
+
+/* Pone dos campos lado a lado en columnas de igual ancho */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Cancela el margin-top entre campos cuando van lado a lado */
+.form-row .form-group + .form-group {
+  margin-top: 0;
+}
+
+/* Etiquetas del formulario en negrita para guiar al usuario */
+label {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+
+/* Estilos base para todos los campos del formulario,
+misma fuente y colores que el resto del sitio */
+input,
+select,
+textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--ink);
+  background-color: var(--paper);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+/* Resalta el campo activo con borde verde y resplandor suave */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(20, 92, 84, 0.16);
+  background-color: var(--white);
+}
+
+/* Solo se marca en rojo después de que la persona interactuó con el campo */
+input:user-invalid,
+select:user-invalid {
+  border-color: var(--error);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Texto de ayuda bajo algunos campos */
+.form-hint {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+/* Asterisco de campo obligatorio en naranja */
+.requerido {
+  color: var(--clay);
+  font-weight: 800;
+}
+
+/* Nota de campos obligatorios al final del formulario */
+.nota-requeridos {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 22px;
+  margin-bottom: 14px;
+}
+
+/* FOOTER */
+/* Footer oscuro al final de la página, referencia para
+la línea decorativa de colores que viene con ::before */
+.site-footer {
+    position: relative;
+    background-color: var(--teal-deep);
+    color: var(--white);
+    margin-top: 16px;
+    padding: 32px 0;
+    text-align: center;
+}
+
+/* Línea decorativa de tres colores en la parte superior del footer,
+resume la paleta completa del sitio.*/
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--clay), var(--marigold), var(--teal-light));
+}
+
+/* Organiza el contenido del footer en columna,
+centrado horizontalmente y con espacio entre cada elemento */
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Estilo del nombre del portal en el footer:
+fuente decorativa, tamaño moderado y letra levemente espaciada */
+.footer-nombre {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Acomoda los datos de contacto en fila, centrados y con
+espacio entre ellos.*/
+.footer-contacto {
+  display: flex;
+  gap: 24px;
+  font-style: normal;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Estilo de cada link de contacto: blanco suave, sin subrayado
+y con transición suave al pasar el mouse */
+.footer-contacto a {
+  position: relative;
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+/* Pseudoclase :first-child / :last-child: separador entre los datos de contacto */
+.footer-contacto a:first-child:not(:last-child) {
+  padding-right: 24px;
+}
+
+/* Dibuja una línea vertical sutil entre el email y el teléfono
+Se posiciona de forma absoluta y se centra verticalmente */
+.footer-contacto a:first-child:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 1px;
+  height: 14px;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%);
+}
+
+.footer-contacto a:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+/* En tablets (pantallas de hasta 900px),
+   se reduce el espacio interior del formulario */
+@media (max-width: 900px) {
+  .form-inscripcion {
+    padding: 30px 28px;
+  }
+}
+
+/* En móviles (pantallas de hasta 768px) se reorganiza
+   todo el layout para que se vea bien en pantallas chicas */
+@media (max-width: 768px) {
+
+  /* Las tarjetas pasan a una sola columna en vez de varias */
+  .talleres-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Se elimina la rotación de las tarjetas, se ve raro en móvil */
+  .taller-card:nth-child(n) {
+    transform: none;
+  }
+
+  /* El efecto hover se vuelve más sutil en pantallas táctiles */
+  .taller-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Los campos de edad y teléfono pasan a apilarse verticalmente */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Se agrega espacio arriba al segundo campo para que no queden pegados */
+  .form-row .form-group + .form-group {
+    margin-top: 22px;
+  }
+
+  /* Se reduce el tamaño del título del header para que quepa bien */
+  .site-header h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Se achica el ícono del logo */
+  .logo-icon {
+    font-size: 2.2rem;
+  }
+
+  /* Se reduce el espacio interior del formulario */
+  .form-inscripcion {
+    padding: 26px 22px;
+  }
+
+  /* Se reduce el padding de la sección de bienvenida
+     y se elimina su rotación decorativa */
+  .section-inicio {
+    padding: 28px 24px;
+    transform: none;
+  }
+
+  /* La insignia "Cupos limitados" deja de flotar
+     y se muestra como un bloque normal */
+  .section-inicio p::before {
+    float: none;
+    display: inline-block;
+    margin: 0 0 12px 0;
+  }
+
+  /* Se achica el padding y el texto de los links del menú */
+  .nav-link {
+    padding: 12px 14px;
+    font-size: 0.8rem;
+  }
+
+  /* Se reduce el espacio interior del contenido principal */
+  .main-content {
+    padding: 36px 16px;
+    gap: 44px;
+  }
+
+  /* Los datos de contacto del footer pasan a apilarse verticalmente */
+  .footer-contacto {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Se elimina el espacio derecho del email, ya no es necesario */
+  .footer-contacto a:first-child:not(:last-child) {
+    padding-right: 0;
+  }
+
+  /* Se oculta el separador vertical entre email y teléfono */
+  .footer-contacto a:first-child:not(:last-child)::after {
+    display: none;
+  }
+}
+
+/* En pantallas muy pequeñas (hasta 480px) se hacen
+   ajustes adicionales para que todo siga siendo legible */
+@media (max-width: 480px) {
+
+  /* El logo y el título del header se apilan y se centran */
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Se reduce aún más el título del header */
+  .site-header h1 {
+    font-size: 1.3rem;
+  }
+
+  /* Los links del menú se centran en pantalla */
+  .nav-list {
+    justify-content: center;
+  }
+
+  /* Se achican aún más los links del menú */
+  .nav-link {
+    padding: 10px 10px;
+    font-size: 0.76rem;
+  }
+
+  /* Se reduce el tamaño de los títulos de sección */
+  section h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Para usuarios que tienen activada la opción de reducir
+   movimiento en su dispositivo, se eliminan todas las
+   animaciones y transiciones del sitio */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+

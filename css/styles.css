@@ -415,6 +415,7 @@ section h2 ~ .section-intro {
   box-shadow: var(--shadow-card);
   border-top: 5px solid var(--teal);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer; /* Ahora la tarjeta es clicable */
 }
 
 /* Pseudoclase :nth-child para alternar color e inclinación — "tablón imperfecto" */
@@ -816,5 +817,17 @@ Se posiciona de forma absoluta y se centra verticalmente */
   html {
     scroll-behavior: auto;
   }
+
+  /* Estado "activo": la sección visible en pantalla en ese momento.
+   Se agrega/quita con JS mientras el usuario hace scroll. */
+  .nav-link.is-active {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+  }
+
+  .nav-link.is-active::after {
+    width: 56%;
+  }
+
 }
 

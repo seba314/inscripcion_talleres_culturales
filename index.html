@@ -33,7 +33,9 @@
       <ul class="nav-list">
         <li><a href="#inicio" class="nav-link">Inicio</a></li>
         <li><a href="#talleres" class="nav-link">Talleres</a></li>
+        <li><a href="#muro-comunidad" class="nav-link">Muro</a></li>
         <li><a href="#inscripcion" class="nav-link">Inscripción</a></li>
+        <li><a href="#inscritos" class="nav-link">Inscritos</a></li>
         <li><a href="#contacto" class="nav-link">Contacto</a></li>
       </ul>
     </div>
@@ -132,6 +134,37 @@
         </article>
 
       </div><!-- /talleres-grid -->
+    </section>
+
+    <section id="muro-comunidad">
+      <h2>Muro de la Comunidad</h2>
+      <p class="section-intro">Deja un comentario, sugerencia o entérate de los anuncios oficiales de los organizadores.</p>
+
+      <div class="muro-container">
+        <form id="formComentario" class="muro-formulario" novalidate>
+          <div class="form-group">
+            <label for="muroNombre">Tu Nombre o Rol <span class="requerido" aria-hidden="true">*</span></label>
+            <input 
+              type="text" 
+              id="muroNombre" 
+              placeholder="Ej: Juan Pérez / Organizadora Ana" 
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label for="muroMensaje">Mensaje, Consulta o Anuncio <span class="requerido" aria-hidden="true">*</span></label>
+            <textarea 
+              id="muroMensaje" 
+              rows="3" 
+              placeholder="Escribe aquí lo que quieras compartir con la comunidad..." 
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Publicar en el Muro</button>
+        </form>
+
+        <div id="listaComentarios" class="muro-lista"></div>
+      </div>
     </section>
 
     <!-- ------------------------------------------------
@@ -233,6 +266,34 @@
         <button type="submit" class="btn-primary btn-submit">Enviar inscripción</button>
 
       </form>
+    </section>
+
+  <!-- ------------------------------------------------
+         SECCIÓN INSCRITOS: Tabla dinámica de personas inscritas
+         (simula una base de datos usando localStorage del navegador)
+    ------------------------------------------------ -->
+    <section id="inscritos">
+      <h2>Personas Inscritas</h2>
+      <p class="section-intro">Estas son las inscripciones registradas en este navegador.</p>
+
+      <div class="inscritos-wrapper">
+        <table class="tabla-inscritos" id="tablaInscritos">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Taller</th>
+              <th scope="col">Contacto</th>
+              <th scope="col">Fecha</th>
+              <th scope="col"><span class="visually-hidden">Acciones</span></th>
+            </tr>
+          </thead>
+          <!-- El contenido de <tbody> se genera dinámicamente en js/script.js -->
+          <tbody id="cuerpoTablaInscritos"></tbody>
+        </table>
+
+        <!-- Mensaje que se muestra solo cuando no hay inscritos todavía -->
+        <p id="inscritosVacio" class="inscritos-vacio">Todavía no hay inscripciones registradas.</p>
+      </div>
     </section>
 
   </main><!-- /main -->

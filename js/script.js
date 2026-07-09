@@ -172,6 +172,7 @@ function validarFormulario(evento) {
     return;
   }
 
+  agregarInscrito(crearInscritoDesdeFormulario(form));
   form.reset();
 }
 
@@ -210,14 +211,176 @@ function manejarScroll() {
   actualizarVisibilidadBotonVolverArriba();
 }
 
-/*Punto de entrada del script.
+/* ------------------------------------------------------------
+    Lista de inscritos (simulación de base de datos con localStorage)
+   ------------------------------------------------------------ */
+
+const CLAVE_STORAGE = "talleres-inscritos";
+
+function cargarInscritos() {
+  try {
+    const datos = localStorage.getItem(CLAVE_STORAGE);
+    return datos ? JSON.parse(datos) : [];
+  } catch (error) {
+    console.error("No se pudo leer localStorage:", error);
+    return [];
+  }
+}
+
+function guardarInscritos(inscritos) {
+  localStorage.setItem(CLAVE_STORAGE, JSON.stringify(inscritos));
+}
+
+function crearInscritoDesdeFormulario(form) {
+  const selectTaller = form.elements["taller"];
+  const nombreTaller = selectTaller.options[selectTaller.selectedIndex].text;
+
+  return {
+    id: Date.now(),
+    nombre: form.elements["nombre"].value.trim(),
+    taller: nombreTaller,
+    email: form.elements["email"].value.trim(),
+    telefono: form.elements["telefono"].value.trim(),
+    fecha: new Date().toLocaleDateString("es-CL", { day: "2-digit", month: "2-digit", year: "numeric" }),
+  };
+}
+
+function agregarInscrito(inscrito) {
+  const inscritos = cargarInscritos();
+  inscritos.unshift(inscrito);
+  guardarInscritos(inscritos);
+  renderizarTablaInscritos();
+}
+
+function eliminarInscrito(id) {
+  const inscritos = cargarInscritos().filter((inscrito) => inscrito.id !== id);
+  guardarInscritos(inscritos);
+  renderizarTablaInscritos();
+}
+
+function crearFilaInscrito(inscrito) {
+  const fila = document.createElement("tr");
+  fila.innerHTML = `
+    <td>${inscrito.nombre}</td>
+    <td><span class="taller-tag">${inscrito.taller}</span></td>
+    <td>${inscrito.email}<br>${inscrito.telefono}</td>
+    <td>${inscrito.fecha}</td>
+    <td><button type="button" class="btn-eliminar" data-id="${inscrito.id}">Eliminar</button></td>
+  `;
+  return fila;
+}
+
+function renderizarTablaInscritos() {
+  const cuerpo = document.getElementById("cuerpoTablaInscritos");
+  const tabla = document.getElementById("tablaInscritos");
+  const mensajeVacio = document.getElementById("inscritosVacio");
+  if (!cuerpo) return;
+
+  const inscritos = cargarInscritos();
+  cuerpo.innerHTML = "";
+
+  if (inscritos.length === 0) {
+    tabla.hidden = true;
+    mensajeVacio.hidden = false;
+    return;
+  }
+
+  tabla.hidden = false;
+  mensajeVacio.hidden = true;
+  inscritos.forEach((inscrito) => cuerpo.appendChild(crearFilaInscrito(inscrito)));
+}
+
+function inicializarTablaInscritos() {
+  const cuerpo = document.getElementById("cuerpoTablaInscritos");
+  if (!cuerpo) return;
+
+  cuerpo.addEventListener("click", (evento) => {
+    if (!evento.target.classList.contains("btn-eliminar")) return;
+    eliminarInscrito(Number(evento.target.dataset.id));
+  });
+
+  renderizarTablaInscritos();
+}
+
+/* ------------------------------------------------------------
+   Muro de la Comunidad (localStorage)
+   ------------------------------------------------------------ */
+
+function inicializarMuro() {
+  const form = document.getElementById("formComentario");
+  const lista = document.getElementById("listaComentarios");
+
+  if (!form || !lista) return;
+
+  let comentarios = [];
+  try {
+    const guardados = localStorage.getItem("muro-comentarios");
+    comentarios = guardados ? JSON.parse(guardados) : [];
+  } catch (e) {
+    console.error("Error al leer el muro desde localStorage", e);
+  }
+
+  const renderizarComentarios = () => {
+    lista.innerHTML = "";
+
+    if (comentarios.length === 0) {
+      lista.innerHTML = '<p class="inscritos-vacio">El muro está vacío. ¡Sé el primero en dejar un mensaje!</p>';
+      return;
+    }
+
+    comentarios.forEach((c) => {
+      const tarjeta = document.createElement("div");
+      tarjeta.className = "comentario-tarjeta";
+
+      const nombreMinuscula = c.nombre.toLowerCase();
+      if (nombreMinuscula.includes("admin") || nombreMinuscula.includes("organiza") || nombreMinuscula.includes("profe")) {
+        tarjeta.classList.add("organizador");
+      }
+
+      tarjeta.innerHTML = `
+        <span class="comentario-fecha">${c.fecha}</span>
+        <div class="comentario-autor">👤 ${c.nombre}</div>
+        <p class="comentario-texto">${c.mensaje}</p>
+      `;
+      lista.appendChild(tarjeta);
+    });
+  };
+
+  form.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    const nombreInput = document.getElementById("muroNombre");
+    const mensajeInput = document.getElementById("muroMensaje");
+
+    if (!nombreInput.value.trim() || !mensajeInput.value.trim()) return;
+
+    const nuevoComentario = {
+      nombre: nombreInput.value.trim(),
+      mensaje: mensajeInput.value.trim(),
+      fecha: new Date().toLocaleDateString("es-CL", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })
+    };
+
+    comentarios.unshift(nuevoComentario);
+    localStorage.setItem("muro-comentarios", JSON.stringify(comentarios));
+
+    renderizarComentarios();
+    form.reset();
+  });
+
+  renderizarComentarios();
+}
+
+/**
+ * Punto de entrada del script.
  * Se ejecuta una sola vez, cuando el DOM está completamente cargado.
  */
 function init() {
   mostrarResumenCupos();
   inicializarEventos();
   inicializarValidacionFormulario();
+  inicializarTablaInscritos();
   inicializarBotonVolverArriba();
+  inicializarMuro();
 
   window.addEventListener("scroll", manejarScroll);
   manejarScroll();

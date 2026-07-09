@@ -829,5 +829,60 @@ Se posiciona de forma absoluta y se centra verticalmente */
     width: 56%;
   }
 
+  /* Mensajes de validación del formulario */
+.form-error {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--error);
+  margin-top: 4px;
+}
+
+#form-mensaje {
+  margin-top: 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-mensaje-exito {
+  color: var(--teal-deep);
+}
+
+.form-mensaje-error {
+  color: var(--error);
+}
+
+/* BOTÓN "VOLVER ARRIBA" */
+.btn-volver-arriba {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--teal);
+  color: var(--white);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease;
+  z-index: 200;
+}
+
+.btn-volver-arriba.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.btn-volver-arriba:hover,
+.btn-volver-arriba:focus-visible {
+  background-color: var(--teal-deep);
+  outline: none;
+}
 }
 

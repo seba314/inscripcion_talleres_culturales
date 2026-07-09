@@ -370,6 +370,137 @@ function inicializarMuro() {
   renderizarComentarios();
 }
 
+/* ------------------------------------------------------------
+   Calendario de talleres
+   ------------------------------------------------------------ */
+
+/**
+ * Pone en mayúscula solo la primera letra de un texto (útil para
+ * los nombres de mes/día que Date.toLocaleDateString entrega en
+ * minúscula, como corresponde en español).
+ */
+function capitalizarPrimeraLetra(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+/**
+ * Horario recurrente de cada taller. "dias" usa el mismo formato
+ * que Date.getDay(): 0 = domingo, 1 = lunes, ... 6 = sábado.
+ */
+const TALLERES_HORARIO = [
+  { id: "pintura", nombre: "Pintura para Principiantes", icono: "🖌️", dias: [2, 4], horario: "10:00 – 12:00 hrs" },
+  { id: "danza", nombre: "Danza Folclórica", icono: "💃", dias: [1, 3, 5], horario: "18:00 – 19:30 hrs" },
+  { id: "teatro", nombre: "Teatro Comunitario", icono: "🎭", dias: [6], horario: "09:00 – 12:00 hrs" },
+];
+
+let mesVisible = new Date().getMonth();
+let anioVisible = new Date().getFullYear();
+
+function obtenerTalleresDelDia(diaSemana) {
+  return TALLERES_HORARIO.filter((taller) => taller.dias.includes(diaSemana));
+}
+
+function crearCeldaDia(numeroDia, fecha) {
+  const celda = document.createElement("button");
+  celda.type = "button";
+  celda.className = "dia-celda";
+  celda.textContent = numeroDia;
+
+  const hoy = new Date();
+  const esHoy =
+    fecha.getDate() === hoy.getDate() &&
+    fecha.getMonth() === hoy.getMonth() &&
+    fecha.getFullYear() === hoy.getFullYear();
+  if (esHoy) celda.classList.add("dia-hoy");
+
+  const talleresDelDia = obtenerTalleresDelDia(fecha.getDay());
+
+  if (talleresDelDia.length > 0) {
+    celda.classList.add("dia-con-evento");
+
+    const puntos = document.createElement("span");
+    puntos.className = "dia-puntos";
+    talleresDelDia.forEach((taller) => {
+      const punto = document.createElement("i");
+      punto.className = `punto punto-${taller.id}`;
+      puntos.appendChild(punto);
+    });
+    celda.appendChild(puntos);
+
+    celda.addEventListener("click", () => mostrarDetalleDia(fecha, talleresDelDia, celda));
+  }
+
+  return celda;
+}
+
+function mostrarDetalleDia(fecha, talleres, celda) {
+  const detalle = document.getElementById("calendarioDetalle");
+
+  document.querySelectorAll(".dia-celda.dia-seleccionado").forEach((el) => el.classList.remove("dia-seleccionado"));
+  celda.classList.add("dia-seleccionado");
+
+  const fechaTexto = capitalizarPrimeraLetra(
+    fecha.toLocaleDateString("es-CL", { weekday: "long", day: "numeric", month: "long" })
+  );
+  const itemsHTML = talleres
+    .map((taller) => `<li>${taller.icono} <strong>${taller.nombre}</strong> — ${taller.horario}</li>`)
+    .join("");
+
+  detalle.innerHTML = `<h4>${fechaTexto}</h4><ul>${itemsHTML}</ul>`;
+  detalle.hidden = false;
+}
+
+function renderizarCalendario() {
+  const grid = document.getElementById("calendarioGrid");
+  const titulo = document.getElementById("calendarioTitulo");
+  if (!grid || !titulo) return;
+
+  grid.innerHTML = "";
+  document.getElementById("calendarioDetalle").hidden = true;
+
+  const primerDiaDelMes = new Date(anioVisible, mesVisible, 1);
+  const diasEnElMes = new Date(anioVisible, mesVisible + 1, 0).getDate();
+  const celdasVacias = (primerDiaDelMes.getDay() + 6) % 7;
+
+  for (let i = 0; i < celdasVacias; i++) {
+    const vacio = document.createElement("span");
+    vacio.className = "dia-celda dia-vacio";
+    grid.appendChild(vacio);
+  }
+
+  for (let dia = 1; dia <= diasEnElMes; dia++) {
+    const fecha = new Date(anioVisible, mesVisible, dia);
+    grid.appendChild(crearCeldaDia(dia, fecha));
+  }
+
+  const nombreMes = primerDiaDelMes.toLocaleDateString("es-CL", { month: "long", year: "numeric" });
+  titulo.textContent = capitalizarPrimeraLetra(nombreMes);
+}
+
+function cambiarMes(delta) {
+  mesVisible += delta;
+
+  if (mesVisible < 0) {
+    mesVisible = 11;
+    anioVisible -= 1;
+  } else if (mesVisible > 11) {
+    mesVisible = 0;
+    anioVisible += 1;
+  }
+
+  renderizarCalendario();
+}
+
+function inicializarCalendario() {
+  const grid = document.getElementById("calendarioGrid");
+  if (!grid) return;
+
+  document.getElementById("mesAnterior").addEventListener("click", () => cambiarMes(-1));
+  document.getElementById("mesSiguiente").addEventListener("click", () => cambiarMes(1));
+
+  renderizarCalendario();
+}
+
 /**
  * Punto de entrada del script.
  * Se ejecuta una sola vez, cuando el DOM está completamente cargado.
@@ -381,6 +512,7 @@ function init() {
   inicializarTablaInscritos();
   inicializarBotonVolverArriba();
   inicializarMuro();
+  inicializarCalendario();
 
   window.addEventListener("scroll", manejarScroll);
   manejarScroll();

@@ -33,6 +33,7 @@
       <ul class="nav-list">
         <li><a href="#inicio" class="nav-link">Inicio</a></li>
         <li><a href="#talleres" class="nav-link">Talleres</a></li>
+        <li><a href="#calendario" class="nav-link">Calendario</a></li>
         <li><a href="#muro-comunidad" class="nav-link">Muro</a></li>
         <li><a href="#inscripcion" class="nav-link">Inscripción</a></li>
         <li><a href="#inscritos" class="nav-link">Inscritos</a></li>
@@ -136,7 +137,41 @@
       </div><!-- /talleres-grid -->
     </section>
 
-    <section id="muro-comunidad">
+    <!-- ------------------------------------------------
+        SECCIÓN CALENDARIO: Grilla mensual con los días de
+        cada taller. Se genera dinámicamente en js/script.js
+    ------------------------------------------------ -->
+    <section id="calendario">
+      <h2>Calendario de Talleres</h2>
+      <p class="section-intro">Revisa qué días se realiza cada taller. Haz clic en un día para ver el detalle.</p>
+
+      <div class="calendario-wrapper">
+        <div class="calendario-header">
+          <button type="button" id="mesAnterior" class="btn-cal-nav" aria-label="Mes anterior">‹</button>
+          <h3 id="calendarioTitulo">Mes Año</h3>
+          <button type="button" id="mesSiguiente" class="btn-cal-nav" aria-label="Mes siguiente">›</button>
+        </div>
+
+        <div class="calendario-dias-semana">
+          <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+        </div>
+
+        <!-- El contenido (los días) se genera dinámicamente en js/script.js -->
+        <div class="calendario-grid" id="calendarioGrid"></div>
+
+        <!-- Leyenda de colores -->
+        <div class="calendario-leyenda">
+          <span><i class="punto punto-pintura"></i> Pintura</span>
+          <span><i class="punto punto-danza"></i> Danza Folclórica</span>
+          <span><i class="punto punto-teatro"></i> Teatro</span>
+        </div>
+
+        <!-- Panel de detalle del día seleccionado -->
+        <div id="calendarioDetalle" class="calendario-detalle" hidden></div>
+      </div>
+    </section>
+
+<section id="muro-comunidad">
       <h2>Muro de la Comunidad</h2>
       <p class="section-intro">Deja un comentario, sugerencia o entérate de los anuncios oficiales de los organizadores.</p>
 
@@ -313,7 +348,7 @@
 
   <!-- Botón flotante "volver arriba" -->
   <button id="btnVolverArriba" class="btn-volver-arriba" aria-label="Volver arriba" title="Volver arriba">
-    ↑
+  ↑
   </button>
 
   <script src="js/script.js" defer></script>

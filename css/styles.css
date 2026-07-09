@@ -817,6 +817,7 @@ Se posiciona de forma absoluta y se centra verticalmente */
   html {
     scroll-behavior: auto;
   }
+}
 
   /* Estado "activo": la sección visible en pantalla en ese momento.
    Se agrega/quita con JS mientras el usuario hace scroll. */
@@ -1026,5 +1027,166 @@ Se posiciona de forma absoluta y se centra verticalmente */
   padding: 18px 8px;
 }
 
+/* CALENDARIO DE TALLERES */
+.calendario-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: var(--paper-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.calendario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.calendario-header h3 {
+  color: var(--teal-deep);
+  font-size: 1.1rem;
+}
+
+.btn-cal-nav {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--paper);
+  color: var(--teal-deep);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cal-nav:hover,
+.btn-cal-nav:focus-visible {
+  background-color: var(--marigold);
+  outline: none;
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dia-celda {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  background: transparent;
+  border: none;
+  cursor: default;
+  color: var(--ink);
+}
+
+.dia-celda.dia-vacio {
+  visibility: hidden;
+}
+
+.dia-celda.dia-con-evento {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.dia-celda.dia-con-evento:hover,
+.dia-celda.dia-con-evento:focus-visible {
+  background-color: rgba(20, 92, 84, 0.1);
+  outline: none;
+}
+
+.dia-celda.dia-hoy {
+  border: 2px solid var(--clay);
+}
+
+.dia-celda.dia-seleccionado {
+  background-color: var(--teal);
+  color: var(--white);
+}
+
+.dia-celda .dia-puntos {
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  gap: 2px;
+}
+
+.punto {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.punto-pintura { background-color: var(--teal); }
+.punto-danza   { background-color: var(--clay); }
+.punto-teatro  { background-color: var(--marigold); }
+
+.calendario-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.calendario-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.calendario-detalle {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background-color: var(--paper);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--teal);
+}
+
+.calendario-detalle h4 {
+  color: var(--teal-deep);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.calendario-detalle ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.calendario-detalle li {
+  font-size: 0.88rem;
+}
+
+@media (max-width: 480px) {
+  .calendario-wrapper {
+    padding: 16px 12px;
+  }
+
+  .dia-celda {
+    font-size: 0.76rem;
+  }
 }
 

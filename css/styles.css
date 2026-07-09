@@ -58,7 +58,7 @@ body {
 
 }
 
-/* Textura de papel fija: no se desplaza con el contenido (position: fixed) */
+/* Textura de papel fija, no se desplaza con el contenido  */
 body::before {
   content: "";
   position: fixed;
@@ -227,7 +227,7 @@ a {
   transform: translateX(-50%);
   transition: width 0.25s ease;
 }
-/* Cuando le pasas el ratón por encima a un enlace del menú: se ilumina un poco. */
+/* Cuando le pasas el ratón por encima a un enlace del menú se ilumina un poco. */
 .nav-link:hover,
 .nav-link:focus-visible {
   background-color: rgba(255, 255, 255, 0.08);
